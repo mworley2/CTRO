@@ -1,1 +1,1 @@
-CREATE DATABASE IF NOT EXISTS `login`;
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('otcradmin');

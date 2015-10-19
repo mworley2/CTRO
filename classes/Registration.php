@@ -106,8 +106,10 @@ class Registration
                         $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
                     }
                 }
-            } else {
+            }
+            else {
                 $this->errors[] = "Sorry, no database connection.";
+                echo $this->db_connection->connect_error;
             }
         } else {
             $this->errors[] = "An unknown error occurred.";
