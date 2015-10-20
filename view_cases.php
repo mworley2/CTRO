@@ -7,7 +7,9 @@ require_once("classes/Upload_Case.php");
 
 // create the upload object. when this object is created, it will do all upload stuff automatically
 // so this single line handles the entire upload process.
-$upload = new Upload_Case();
+
+
+//$view_cases = new Upload_Case();
 
 // show the register view (with the registration form, and messages/errors)
-include("views/upload_case.php");
+include("views/view_cases.php");
