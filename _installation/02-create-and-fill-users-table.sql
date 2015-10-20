@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `login`.`interviews` (
 CREATE TABLE IF NOT EXISTS `login`.`owns` (
   `user_name` varchar(64) NOT NULL  COMMENT 'user_name of the user engaging in the case, unique',
   `case_id` int(11) COLLATE utf8_unicode_ci NOT NULL COMMENT 'id of the case, unique',
-  PRIMARY KEY (`case_id`),
+  PRIMARY KEY (`case_id`, `user_name`),
   UNIQUE KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='which users own which cases';
 

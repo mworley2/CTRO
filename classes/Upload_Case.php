@@ -18,7 +18,6 @@ class Upload_Case
 
     public function __construct()
     {
-        print_r($_POST);
         if (isset($_POST["CaseUpload"])) {
             $this->uploadNewCase();
         }
@@ -26,6 +25,7 @@ class Upload_Case
 
     private function uploadNewCase()
     {
+        session_start();
 
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
@@ -37,11 +37,22 @@ class Upload_Case
         $sql = "INSERT INTO cases (case_id, case_name, style, num_slides, times_taken, avg_time)
                             VALUES(NULL, '" . $case_name . "', '" . $case_style . "', '" . $num_slides . "', '0','0.0');";
 
-        $query_new_case_insert = $this->db_connection->query($sql);
+        $query_new_owns_insert = $this->db_connection->query($sql);
 
+        if ($query_new_owns_insert) {
 
-        if ($query_new_case_insert) {
-            $this->messages[] = "Your case has been created successfully.";
+            $case_id = $this->db_connection->insert_id;
+
+            $sql = "INSERT INTO owns (user_name, case_id)
+                            VALUES('". $_SESSION["user_name"] . "', '" . $case_id ."'); ";
+
+            $query_new_owns_insert = $this->db_connection->query($sql);
+
+            if($query_new_owns_insert)
+                echo "SUCCESS IN OWNS";
+            else
+                echo "FAIL IN OWNS";
+
         } else {
             $this->errors[] = "Sorry, your case upload failed. Please go back and try again.";
         }

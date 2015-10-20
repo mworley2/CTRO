@@ -29,7 +29,6 @@ class Registration
             $this->registerNewUser();
         }
     }
-
     /**
      * handles the entire registration process. checks all error possibilities
      * and creates a new user in the database if everything is fine
