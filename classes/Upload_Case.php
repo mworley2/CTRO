@@ -18,7 +18,7 @@ class Upload_Case
 
     public function __construct()
     {
-        if (isset($_POST["uploadCase"])) {
+        if (isset($_POST["Case Upload"])) {
             $this->uploadNewCase();
         }
     }
@@ -28,6 +28,22 @@ class Upload_Case
         require_once("config/db.php");
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
+        $case_name = $this->db_connection->real_escape_string(strip_tags($_POST['case_name'], ENT_QUOTES));
+        $case_style = $this->db_connection->real_escape_string(strip_tags($_POST['case_style'], ENT_QUOTES));
+
+        $num_slides = 10; //TODO once PDF splitting works
+
+        $sql = "INSERT INTO users (case_name, style, num_slides, times_taken, avg_time)
+                            VALUES('" . $case_name . "', '" . $case_style . "', '" . $num_slides . "', '0','0');";
+
+        $query_new_user_insert = $this->db_connection->query($sql);
+
+        // if user has been added successfully
+        if ($query_new_user_insert) {
+            $this->messages[] = "Your case has been created successfully.";
+        } else {
+            $this->errors[] = "Sorry, your case upload failed. Please go back and try again.";
+        }
     }
 
 }
