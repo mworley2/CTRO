@@ -14,6 +14,7 @@ if (isset($upload)) {
 }
 ?>
 
+<h1>Upload a new case</h1>
 <!-- register form -->
 <form method="post" action="upload_case.php" name="Case Upload Form">
 
@@ -29,7 +30,7 @@ if (isset($upload)) {
 
     <label for="upload_input_slides"> Slides Upload</label>
     <input type="file" placeholder="Upload file"  name="slides_pdf" id="upload_input_slides" accept="application/pdf" class="required" /> -->
-    <input type="submit"  name="CaseUpload" value="Upload_Case" />
+    <input type="submit"  name="CaseUpload" value="Upload Case" />
 </form>
 
 <!-- backlink -->
