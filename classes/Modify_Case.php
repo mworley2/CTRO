@@ -18,6 +18,7 @@ class Modify_Case
 
     public function __construct()
     {
+        echo "Modify Case construct";
         if (isset($_POST["modify"])) {
             $this->ModifyCase();
         }
@@ -25,8 +26,10 @@ class Modify_Case
 
     private function ModifyCase()
     {
-        session_start();
 
+        session_start();
+        $myUsername = $_SESSION["user_name"];
+        echo "Modify Case";
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
         $case_id = $this->db_connection->real_escape_string(strip_tags($_POST['case_id_for_modification'], ENT_QUOTES));
