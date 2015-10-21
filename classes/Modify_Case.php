@@ -1,6 +1,6 @@
 <?php
 
-class Upload_Slides
+class Modify_Case
 {
     /**
      * @var object $db_connection The database connection
@@ -18,62 +18,36 @@ class Upload_Slides
 
     public function __construct()
     {
-        if (isset($_POST["register"])) {    //TODO not sure how this will be posting from upload case
-            $this->uploadNewSlides();
+        if (isset($_POST["modify"])) {
+            $this->ModifyCase();
         }
     }
-    private function uploadNewSlides()
+
+    private function ModifyCase()
     {
-        require_once("config/db.php");
+        session_start();
+
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-        $myPDF = 'imaginary string';
-        $nextCaseID = 9;
+        $case_id = $this->db_connection->real_escape_string(strip_tags($_POST['case_id_for_modification'], ENT_QUOTES));
+        $new_case_name = $this->db_connection->real_escape_string(strip_tags($_POST['new_name'], ENT_QUOTES));
+        $new_case_style = $this->db_connection->real_escape_string(strip_tags($_POST['new_style'], ENT_QUOTES));
 
-       // $this->split_pdf($myPDF, $nextCaseID, $this->db_connection);
-        /**
-         * Split PDF file and upload pieces
-         * partial: https://gist.github.com/maccath/3981205
-         */
+        $sql = "SELECT owns.case_id FROM owns WHERE owns.case_id = '".$case_id."' AND owns.user_name = '".$myUsername."';";
 
-        require_once('../libraries/PDFTools/fpdf17/fpdf.php');
-        require_once('../libraries/PDFTools/fpdi/fpdi.php');
-        if (!$this->db_connection)
-            die("Can't connect to MySQL: " . mysqli_connect_error());
+        $can_modify = $this->db_connection->query($sql);
 
-        $pdf = new FPDI();
-        $pagecount = $pdf->setSourceFile($myPDF); // How many pages?
+        if($can_modify) {
+            $sql = "UPDATE cases SET case_name = '".$new_case_name."', style = '".$new_case_style."' WHERE case_id = '".$case_id."';";
 
-        if ($pagecount > 20)
-            die("That PDF is too many pages and will clog our database");
+            $modification = $this->db_connection->query($sql);
 
-        /**
-         * https://blogs.oracle.com/oswald/entry/php_s_mysqli_extension_storing For perpared statements
-         */
-
-        // Split each page into a new PDF
-        for ($i = 1; $i <= $pagecount; $i++) {
-            $new_pdf = new FPDI();
-            $new_pdf->AddPage();
-            $new_pdf->setSourceFile($myPDF);
-            $new_pdf->useTemplate($new_pdf->importPage($i));
-
-            $new_pdf->Output('unused', "R");
-
-            $stmt = $this->db_connection->prepare("INSERT INTO slides (image) VALUES(?)");
-            $null = NULL;
-            $stmt->bind_param("b", $null);
-            $stmt->send_long_data(0, $new_pdf);
-            $stmt->execute();
-
+            if($modification)
+                echo "SUCCESSFUL MODIFICATION";
+            else
+                echo "MODIFICATION FAILURE";
+        } else {
+            $this->errors[] = "Sorry, you do not have access to that case.";
         }
     }
-
-/** refactor this out later
-    private function split_pdf($filename, $caseUploadID, $mysqli)
-    {
-
-    }
-
- */
- }
+}
