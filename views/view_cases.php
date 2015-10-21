@@ -44,7 +44,7 @@ while ($row = mysqli_fetch_array($results))
 <br />
 <h1>Case Modification</h1>
     <!-- TODO Create a modify class (can only modify the name and the style at this time) -->
-    <form method="post" action="view/view_cases.php" name="Modify Case">
+    <form method="post" action="Modify.php" name="Modify Case">
 
         <label for="case_id_input">Case ID For Modification: </label>
         <input id="case_id_input" class="modification_input" type="text" name="case_id_for_modification" required />

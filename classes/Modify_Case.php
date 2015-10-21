@@ -33,6 +33,8 @@ class Modify_Case
         $new_case_name = $this->db_connection->real_escape_string(strip_tags($_POST['new_name'], ENT_QUOTES));
         $new_case_style = $this->db_connection->real_escape_string(strip_tags($_POST['new_style'], ENT_QUOTES));
 
+        $myUsername = $_SESSION["user_name"]; //Get the username from the current user
+
         $sql = "SELECT owns.case_id FROM owns WHERE owns.case_id = '".$case_id."' AND owns.user_name = '".$myUsername."';";
 
         $can_modify = $this->db_connection->query($sql);
