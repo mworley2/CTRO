@@ -16,6 +16,7 @@ if (isset($view)) {
 
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $myUsername = $_SESSION["user_name"];
+
 //show cases
 $sql = "SELECT cases.case_id, cases.case_name, cases.style FROM cases, owns WHERE cases.case_id = owns.case_id AND owns.user_name = '".$myUsername."';";
 
@@ -29,9 +30,9 @@ while ($row = mysqli_fetch_array($results))
 }
 
 
+
 //show interviews
-//$sql_interview = "SELECT interviews.interview_id, interviews.giver_username, interviews.taker_username, FROM interviews WHERE interviews.giver_username = '".$myUsername."' OR interviews.taker_username = '".$myUsername."';";
-$sql_interview = "SELECT interviews.interview_id, interviews.giver_username, interviews.taker_username FROM interviews WHERE interviews.giver_username = '".$myUsername."';";
+$sql_interview = "SELECT interviews.interview_id, interviews.giver_username, interviews.taker_username FROM interviews WHERE interviews.taker_username = '".$myUsername."' OR interviews.giver_username = '".$myUsername."';";
 
 $results = $db_connection->query($sql_interview);
 $row2 = NULL;
@@ -45,12 +46,22 @@ else{
     while($row = mysqli_fetch_array($results))
     {
         echo 'Interview ID: '. $row["interview_id"] .'  Giver: ' .$row["giver_username"].'   Taker: '.$row["taker_username"].'<br />';
-        //create button for each interview to click and go into that interview 
-        // make a new file called interview.php that will show contents of that interview
+        
     }
+
 }
 
 ?>
+
+<br />
+<form method="post" action="interview.php" name="Go to Interview"> <!-- return to this page after executing and updating -->
+
+    <label for="interview_id_input">ID of the Interview you would like to go to: </label>
+    <input id="interview_id_input" class="interview_input" type="text" name="interview_id" required />
+    <input type="submit"  name="interview" value="Go to Interview" /> <!-- There needs to be something that this submission triggers -->
+
+</form>
+
 
 <br />
 <!-- TODO Create a delete class (simple just needs to delete case from EVERY ONE of our tables) -->
