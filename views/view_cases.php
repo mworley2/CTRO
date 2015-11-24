@@ -16,6 +16,7 @@ if (isset($view)) {
 
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $myUsername = $_SESSION["user_name"];
+//show cases
 $sql = "SELECT cases.case_id, cases.case_name, cases.style FROM cases, owns WHERE cases.case_id = owns.case_id AND owns.user_name = '".$myUsername."';";
 
 $results = $db_connection->query($sql);
@@ -27,6 +28,27 @@ while ($row = mysqli_fetch_array($results))
         echo 'Case Name: '. $row["case_name"] .'  Case Type: ' .$row["style"].'   Case ID: '.$row["case_id"].'<br />';
 }
 
+
+//show interviews
+//$sql_interview = "SELECT interviews.interview_id, interviews.giver_username, interviews.taker_username, FROM interviews WHERE interviews.giver_username = '".$myUsername."' OR interviews.taker_username = '".$myUsername."';";
+$sql_interview = "SELECT interviews.interview_id, interviews.giver_username, interviews.taker_username FROM interviews WHERE interviews.giver_username = '".$myUsername."';";
+
+$results = $db_connection->query($sql_interview);
+$row2 = NULL;
+
+
+echo "<h1>My Interviews</h1>";
+if($results === FALSE ){
+    echo"FALSE";
+}
+else{
+    while($row = mysqli_fetch_array($results))
+    {
+        echo 'Interview ID: '. $row["interview_id"] .'  Giver: ' .$row["giver_username"].'   Taker: '.$row["taker_username"].'<br />';
+        //create button for each interview to click and go into that interview 
+        // make a new file called interview.php that will show contents of that interview
+    }
+}
 
 ?>
 
@@ -59,7 +81,28 @@ while ($row = mysqli_fetch_array($results))
 
     </form>
 
-    <br />
+<br />
+
+<h1>Create Interview</h1>
+    <form method="post" action="createInterview.php" name="Create Interview">
+        
+        <label for="case_id_input">Case ID for interview: </label>
+        <input id="case_id_input" class="creation_input" type="text" name="case_id_for_creation" required />
+
+        <label for="interviewee_input">Interviewee Username: </label>
+        <input id="interviewee_input" class="creation_input" type="text" name="interviewee_name" required />
+
+        <label for="permissions_input">Unlock slides up to slide #: </label>
+        <input id="permissions_input" class="creation_input" type="text" name="slide_num_end" required />
+
+        
+
+        <input type="submit"  name="create" value="Create Interview" />
+    </form>
+
+
+
+
 <a href="index.php">Back to Home Page</a>
 
 <?//php echo $_SESSION['user_name']; ?>
