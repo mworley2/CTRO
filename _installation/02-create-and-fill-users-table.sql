@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS  `owns` (
 CREATE TABLE IF NOT EXISTS  `slides` (
   `case_id` int(11) COLLATE utf8_unicode_ci  COMMENT 'id of the case, unique',
   `slide_num` int(64) COLLATE utf8_unicode_ci COMMENT 'slide number in the case (order in case)',
-  `slide_pdf` blob NOT NULL COMMENT 'actual slide pdf contents ',
+  `path_to_slide` varchar(128) NOT NULL COMMENT 'path to where our slide is held in the file system',
   PRIMARY KEY (`case_id`, `slide_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='individual slides for all cases';
 

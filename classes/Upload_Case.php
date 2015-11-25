@@ -36,16 +36,14 @@ class Upload_Case
         require_once('fpdf17/fpdf.php');
         require_once('fpdi/fpdi.php');
         $pdf = new FPDI();
-        print_r($case_slides);
         $num_slides = $pdf->setSourceFile($case_slides); //TODO once PDF splitting works
 
         $sql = "INSERT INTO cases (case_id, case_name, style, num_slides, times_taken, avg_time)
                             VALUES(NULL, '" . $case_name . "', '" . $case_style . "', '" . $num_slides . "', '0','0.0');";
 
-        $query_new_owns_insert = $this->db_connection->query($sql);
-        //$case_id = 0;
+        $query_new_cases_insert = $this->db_connection->query($sql);
 
-        if ($query_new_owns_insert) {
+        if ($query_new_cases_insert) {
 
             $case_id = $this->db_connection->insert_id;
 
@@ -66,16 +64,13 @@ class Upload_Case
             $this->errors[] = "Sorry, your case upload failed. Please go back and try again.";
         }
 
-
     }
     // https://gist.github.com/maccath/3981205
     private function split_pdf($filename, $case_id)
     {
         require_once('fpdf17/fpdf.php');
         require_once('fpdi/fpdi.php');
-
         $base_directory = 'resources/slide_storage/';
-
 
         $pdf = new FPDI();
         $pagecount = $pdf->setSourceFile($filename); // How many pages?
@@ -83,14 +78,24 @@ class Upload_Case
         // Split each page into a new PDF
         for ($i = 1; $i <= $pagecount; $i++)
         {
-            echo $i;
             $new_pdf = new FPDI();
             $new_pdf->AddPage('L');
             $new_pdf->setSourceFile($filename);
             $new_pdf->useTemplate($new_pdf->importPage($i)); // Is this actually a PDF yet?
 
-            $new_path = $base_directory . "c" . $case_id . "p" . $i . '.pdf';
-            $new_pdf->Output($new_path, "F");
+
+            $myPath = uniqid($base_directory,true); // 47 Characters long
+            $new_pdf->Output($myPath, "F");
+            $sql = "INSERT INTO slides (case_id, slide_num, path_to_slide)
+                            VALUES('". $case_id . "', '" . $i . "', '" . $myPath . "'); ";
+
+            $query_insert_slide = $this->db_connection->query($sql);
+            if($query_insert_slide)
+            {
+                $this->messages[] = 'Slide '. $i . ' Successfully Uploaded!';
+            }
+            else
+                $this->errors[] = 'A slide failed to upload!';
 
            /* $im = new Imagick();
             $im->setResolution(300,300); //TODO wtf res do we want?
