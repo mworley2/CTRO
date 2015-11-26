@@ -1,5 +1,6 @@
     <?php
     ini_set('display_errors', 1);
+
     class Upload_Case
     {
         /**
@@ -29,7 +30,24 @@
 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-            print_r($_FILES);
+            print_r($_FILES); //just for debugging, prints file attributes to screen
+            
+            $case_slides = $_FILES['slides_pdf']['tmp_name'];  //tmp_name is location of file on server i think
+            //^location of the uploaded slides on server
+            //http://codular.com/php-file-uploads
+
+            //error checking- make sure file uploaded correctly
+            if($_FILES['slides_pdf']['error'] > 0){
+                $this->errors[] = "An error ocurred when uploading.";
+            }
+
+            /*
+            //idk if we have a maximum file size
+            if($_FILES['file_upload']['size'] > 5000000){
+                $this->errors[] = "File uploaded exceeds maximum upload size.";
+            } */
+
+       
 /*
             $case_name = $this->db_connection->real_escape_string(strip_tags($_POST['case_name'], ENT_QUOTES));
             $case_style = $this->db_connection->real_escape_string(strip_tags($_POST['case_style'], ENT_QUOTES));
