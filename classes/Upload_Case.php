@@ -20,6 +20,7 @@
 
         public function __construct()
         {
+            ini_set('display_errors', 1);
             if (isset($_POST["CaseUpload"])) {
                 $this->uploadNewCase();
             }
@@ -27,6 +28,7 @@
 
         private function uploadNewCase()
         {
+            ini_set('display_errors', 1);
             session_start();
 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -80,20 +82,15 @@
         // https://gist.github.com/maccath/3981205
         private function split_pdf($filename, $case_id)
         {
+            print('Processing Slides (may take a moment)');
             require_once('fpdf17/fpdf.php');
             require_once('fpdi/fpdi.php');
 
-            $base_directory = $_SERVER['DOCUMENT_ROOT']."/CTRO/resources/slide_storage/";
-            //checking file permissions
-            //$perms = fileperms($_SERVER['DOCUMENT_ROOT']."/CTRO/resources/slide_storage/");
-            //$length = strlen(decoct($perms))-3;
-            //$p = substr(decoct($perms),$length);
-            //echo"file permissions= $p <br />";
 
             $pdf = new FPDI();
             $pagecount = $pdf->setSourceFile($filename); // How many pages?
 
-            // Split each page into a new PDF
+            // Split each page into a new PDF s
             for ($i = 1; $i <= $pagecount; $i++)
             {
                 $new_pdf = new FPDI();
@@ -101,9 +98,21 @@
                 $new_pdf->setSourceFile($filename);
                 $new_pdf->useTemplate($new_pdf->importPage($i)); // Is this actually a PDF yet?
 
+                $myPath = uniqid(true); // 47 Characters long
+                $pdf_file = 'CTRO/resources/slide_storage/' . $myPath . '.pdf';
+                $save_to = 'CTRO/resources/slide_storage/' . $myPath . '.jpg';
+                $new_pdf->Output($pdf_file, "F");
 
-                $myPath = uniqid($base_directory,true); // 47 Characters long
-                $new_pdf->Output($myPath, "F");
+                //execute ImageMagick command 'convert' and convert PDF to JPG with applied settings
+                exec('convert "'.$pdf_file.'" -colorspace RGB -resize 800 "'.$save_to.'"', $output, $return_var);
+                unlink($pdf_file);
+
+
+                if($return_var == 0) {              //if exec successfuly converted pdf to jpg
+                   // print "Conversion OK";
+                }
+                else print "Conversion failed.<br />".$output;
+
 
                 $sql = "INSERT INTO slides (case_id, slide_num, path_to_slide)
                                 VALUES('". $case_id . "', '" . $i . "', '" . $myPath . "'); ";
@@ -115,15 +124,6 @@
                 }
                 else
                     $this->errors[] = 'A slide failed to upload!';
-
-               /* $im = new Imagick();
-                $im->setResolution(300,300); //TODO wtf res do we want?
-                $im->readimage($new_pdf);
-                $im->setImageFormat('jpeg');
-                $im->writeImage($new_path);
-                $im->clear();
-                $im->destroy();
-               */
             }
 
         }

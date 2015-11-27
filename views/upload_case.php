@@ -17,7 +17,7 @@ if (isset($upload)) {
 
 <h1>Upload a new case</h1>
 <!-- register form -->
-<form method="post" action="Upload_Case.php" name="Case Upload Form" enctype="multipart/form-data">
+<form method="post" action="upload_case.php" name="Case Upload Form" enctype="multipart/form-data">
 
     <!-- the user name input field uses a HTML5 pattern check -->
     <label for="upload_input_name">Case Name</label>
