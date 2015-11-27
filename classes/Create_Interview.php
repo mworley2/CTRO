@@ -30,6 +30,7 @@ class Create_Interview{
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
         $case_id = $this->db_connection->real_escape_string(strip_tags($_POST['case_id_for_creation'], ENT_QUOTES));
+        //TODO if the other user doesnt exist
         $taker_username = $this->db_connection->real_escape_string(strip_tags($_POST['interviewee_name'], ENT_QUOTES));
         $giver_username = $_SESSION["user_name"]; //gets username from current session
         $permissions = $this->db_connection->real_escape_string(strip_tags($_POST['slide_num_end'], ENT_QUOTES));
@@ -48,7 +49,7 @@ class Create_Interview{
             $query_uses_insert = $this->db_connection->query($sql_uses);
 
             if($query_uses_insert)
-                echo "SUCCESS IN USES";
+                header('Location: http://web.engr.illinois.edu/~ctrocs411/view_cases.php');
             else
                 echo "FAIL IN USES";
 
@@ -56,7 +57,6 @@ class Create_Interview{
         else {
             $this->errors[] = "Sorry, your interview creation failed. Please go back and try again.";
         }
-
 
 
     }
