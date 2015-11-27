@@ -32,8 +32,8 @@
 
             print_r($_FILES); //just for debugging, prints file attributes to screen
             
-            $case_slides = $_FILES['slides_pdf']['tmp_name'];  //tmp_name is location of file on server i think
-            //^location of the uploaded slides on server
+            $case_slides = $_FILES['slides_pdf']['tmp_name'];  //full path of file uploaded to server
+            //http://stackoverflow.com/questions/5450713/getting-complete-path-of-uploaded-file-php
             //http://codular.com/php-file-uploads
 
             //error checking- make sure file uploaded correctly
@@ -41,17 +41,9 @@
                 $this->errors[] = "An error ocurred when uploading.";
             }
 
-            /*
-            //idk if we have a maximum file size
-            if($_FILES['file_upload']['size'] > 5000000){
-                $this->errors[] = "File uploaded exceeds maximum upload size.";
-            } */
-
-       
-/*
             $case_name = $this->db_connection->real_escape_string(strip_tags($_POST['case_name'], ENT_QUOTES));
             $case_style = $this->db_connection->real_escape_string(strip_tags($_POST['case_style'], ENT_QUOTES));
-            $case_slides = $this->db_connection->real_escape_string(strip_tags($_POST['slides_pdf'], ENT_QUOTES));
+            //$case_slides = $this->db_connection->real_escape_string(strip_tags($_POST['slides_pdf'], ENT_QUOTES));
 
 
             require_once('fpdf17/fpdf.php');
@@ -84,7 +76,7 @@
             } else {
                 $this->errors[] = "Sorry, your case upload failed. Please go back and try again.";
             }
-*/
+
         }
         // https://gist.github.com/maccath/3981205
         private function split_pdf($filename, $case_id)
@@ -95,6 +87,9 @@
 
             $pdf = new FPDI();
             $pagecount = $pdf->setSourceFile($filename); // How many pages?
+            //debugging
+            echo"<br />";
+            echo"num of slides = $pagecount";
 
             // Split each page into a new PDF
             for ($i = 1; $i <= $pagecount; $i++)
