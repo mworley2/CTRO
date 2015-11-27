@@ -10,3 +10,5 @@ require_once("classes/Upload_Case.php");
 $upload = new Upload_Case();
 // show the register view (with the registration form, and messages/errors)
 include("views/upload_case.php");
+
+?>

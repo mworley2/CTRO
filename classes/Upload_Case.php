@@ -1,4 +1,5 @@
-    <?php
+<?php
+
     ini_set('display_errors', 1);
 
     class Upload_Case
@@ -30,11 +31,9 @@
 
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-            print_r($_FILES); //just for debugging, prints file attributes to screen
+            //print_r($_FILES); //just for debugging, prints file attributes to screen
             
             $case_slides = $_FILES['slides_pdf']['tmp_name'];  //full path of file uploaded to server
-            //http://stackoverflow.com/questions/5450713/getting-complete-path-of-uploaded-file-php
-            //http://codular.com/php-file-uploads
 
             //error checking- make sure file uploaded correctly
             if($_FILES['slides_pdf']['error'] > 0){
@@ -83,13 +82,16 @@
         {
             require_once('fpdf17/fpdf.php');
             require_once('fpdi/fpdi.php');
-            $base_directory = 'resources/slide_storage/';
+
+            $base_directory = $_SERVER['DOCUMENT_ROOT']."/CTRO/resources/slide_storage/";
+            //checking file permissions
+            //$perms = fileperms($_SERVER['DOCUMENT_ROOT']."/CTRO/resources/slide_storage/");
+            //$length = strlen(decoct($perms))-3;
+            //$p = substr(decoct($perms),$length);
+            //echo"file permissions= $p <br />";
 
             $pdf = new FPDI();
             $pagecount = $pdf->setSourceFile($filename); // How many pages?
-            //debugging
-            echo"<br />";
-            echo"num of slides = $pagecount";
 
             // Split each page into a new PDF
             for ($i = 1; $i <= $pagecount; $i++)
@@ -102,13 +104,14 @@
 
                 $myPath = uniqid($base_directory,true); // 47 Characters long
                 $new_pdf->Output($myPath, "F");
+
                 $sql = "INSERT INTO slides (case_id, slide_num, path_to_slide)
                                 VALUES('". $case_id . "', '" . $i . "', '" . $myPath . "'); ";
 
                 $query_insert_slide = $this->db_connection->query($sql);
                 if($query_insert_slide)
                 {
-                   // $this->messages[] = 'Slide '. $i . ' Successfully Uploaded!';
+                    $this->messages[] = 'Slide '. $i . ' Successfully Uploaded!';
                 }
                 else
                     $this->errors[] = 'A slide failed to upload!';
