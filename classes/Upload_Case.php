@@ -100,7 +100,7 @@
 
                 $myPath = uniqid(true); // 47 Characters long
                 $pdf_file = 'CTRO/resources/slide_storage/' . $myPath . '.pdf';
-                $save_to = 'CTRO/resources/slide_storage/' . $myPath . '.jpg';
+                $save_to = 'CTRO/resources/slide_storage/' . $myPath . '.jpg'; 
                 $new_pdf->Output($pdf_file, "F");
 
                 //execute ImageMagick command 'convert' and convert PDF to JPG with applied settings
@@ -108,14 +108,13 @@
                 unlink($pdf_file);
 
 
-                if($return_var == 0) {              //if exec successfuly converted pdf to jpg
-                   // print "Conversion OK";
+                if($return_var[0] == 0) {              //if exec successfuly converted pdf to jpg
+                   print "Conversion OK";
                 }
                 else print "Conversion failed.<br />".$output;
 
-
                 $sql = "INSERT INTO slides (case_id, slide_num, path_to_slide)
-                                VALUES('". $case_id . "', '" . $i . "', '" . $myPath . "'); ";
+                                VALUES('". $case_id . "', '" . $i . "', '" . $save_to . "'); "; //should be saving save_to instead of $myPath bc need full path to render image
 
                 $query_insert_slide = $this->db_connection->query($sql);
                 if($query_insert_slide)

@@ -49,6 +49,9 @@ class Create_Interview{
             $query_uses_insert = $this->db_connection->query($sql_uses);
 
             if($query_uses_insert)
+                //for maggy:
+                //echo "SUCCESS IN USES";
+                //for cpanel:
                 header('Location: http://web.engr.illinois.edu/~ctrocs411/view_cases.php');
             else
                 echo "FAIL IN USES";
