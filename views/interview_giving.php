@@ -52,25 +52,37 @@ $interview_id = $_POST['interview_id'];
         }
         else{
 
-            $varString = "<div id=\"slider\">";
-            $firstTime = 1;
+            $sliderContents = "";
+            $unlockButtonsContents = "";
+            $i = 0;
         	while($row = mysqli_fetch_array($results2) ){
 
 	        	$path_to_slide = $row["path_to_slide"];
 	        	$imagepath = 'CTRO/resources/slide_storage/' . $path_to_slide .'.jpg '; //This works on cPanel, had to change the path a bit it just gets the name of the file (not folders)
 	        	$additional_string = '<img src= "'.$imagepath.'" width=600 height=400 />';
-                //echo $additional_string;
+                $sliderContents = $sliderContents . $additional_string;
 
-                $varString = $varString . $additional_string;
+                //$unlockButtonsContents = $unlockButtonsContents . '<div rel="' . $i . '" id="unlockButton' . ($i + 1) . '"> L </div>';
+                $unlockButtonsContents = $unlockButtonsContents . '<button type="button" value="'. $i . '" onclick="unlockSlide(this.value)">L</button>';
+                $i = $i +1;
         	}
-            $varString = $varString . "</div>";
-          //
             ?>
-
 <body>
 <div id="sliderFrame">
-        <? echo $varString; ?>
+    <div id="slider">
+        <? echo $sliderContents; ?>
+    </div>
+    <div class="navBulletsLockWrapper">
+        <? echo $unlockButtonsContents; ?>
+    </div>
 </div>
+
+<script>
+    function unlockSlide(number) {
+        //TODO change some permissions somehow (how do we want to do this????) and change the button color to blackish
+    }
+</script>
+
 </body>
 
                 <?php
