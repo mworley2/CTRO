@@ -42,10 +42,10 @@ function getSlidesStringForSlider($db_connection, $interview_id)
         $varString = "";
         while ($row = mysqli_fetch_array($results2)) {
 
-            $slidenum = $row["slide_num"];
-            $checkNumber = pow(2, $slidenum);
+            $slidenum = $row["slide_num"]; //TODO is this the right slidenum?
+            $checkNumber = pow(2, ($slidenum -1));
             $imagepath = "";
-            if ($myPermissions - $checkNumber >= 0) //TODO this is reversed (for debugging)
+            if ($myPermissions - $checkNumber >= 0)
             {
                 $path_to_slide = $row["path_to_slide"];
                 $imagepath = 'CTRO/resources/slide_storage/' . $path_to_slide . '.jpg '; //This works on cPanel, had to change the path a bit it just gets the name of the file (not folders)

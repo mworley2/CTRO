@@ -82,13 +82,17 @@ $interview_id = $_POST['interview_id'];
 <script>
     function unlockSlide(number, interviewID) {
         //TODO change some permissions somehow (how do we want to do this????) and change the button color to blackish
+       // window.alert(number);
+        //window.alert(interviewID);
+        //header(changePermissions.php?number)
+       // oursite.com/cvan
 
             $.ajax({
                 url: "changePermissions.php",
                 type: "POST",
-                data: { 'slide_number': number, 'interviewID': interviewID},
+                data: { 'slide_number': number, 'interviewID': interviewID}
             });
-        $(this).unbind('click'); //TODO make sure unbind is working for security otherwise things will get really fucked really fast
+        //$(this).unbind('click'); //TODO make sure unbind is working for security otherwise things will get really fucked really fast
 
     }
 </script>
