@@ -35,6 +35,7 @@ class Create_Interview{
         $giver_username = $_SESSION["user_name"]; //gets username from current session
         $permissions = $this->db_connection->real_escape_string(strip_tags($_POST['slide_num_end'], ENT_QUOTES));
 
+        $permissions = 0; //TODO should we remove early unlocking before the interview screen
         $sql = "INSERT INTO interviews (interview_id, permissions, giver_username, taker_username, notes, timeTaken)
                             VALUES(NULL, '" . $permissions . "', '" . $giver_username . "', '" . $taker_username . "', NULL,'0.0');";
 

@@ -44,14 +44,20 @@ function getSlidesStringForSlider($db_connection, $interview_id)
 
             $slidenum = $row["slide_num"];
             $checkNumber = pow(2, $slidenum);
-
-            if ($myPermissions - $checkNumber <= 0) //TODO this is reversed (for debugging)
+            $imagepath = "";
+            if ($myPermissions - $checkNumber >= 0) //TODO this is reversed (for debugging)
             {
                 $path_to_slide = $row["path_to_slide"];
                 $imagepath = 'CTRO/resources/slide_storage/' . $path_to_slide . '.jpg '; //This works on cPanel, had to change the path a bit it just gets the name of the file (not folders)
-                $additional_string = '<img src= "' . $imagepath . '" width=600 height=400 />';
-                $varString = $additional_string . $varString;
+                $myPermissions = $myPermissions - $checkNumber;
             }
+            else
+            {
+                $imagepath = 'CTRO/resources/slide_storage/Locked.jpg';
+            }
+
+            $additional_string = '<img src= "' . $imagepath . '" width=600 height=400 />';
+            $varString = $additional_string . $varString;
             //TODO go through here checking persmissions the whole time to determine whether to display the path to the slide image or to display (for example) CTRO/resources/lockedSlide.jpg to indicate that the slide is not viewable
         }
         $varString = "'<div id=\"slider\">" . $varString . "</div>'";

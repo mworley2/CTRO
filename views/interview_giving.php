@@ -1,7 +1,9 @@
 <html lang="en">
 <head>
+    <script type="text/javascript" src="js/jquery-1.11.3.js"> </script>
     <link href="css/js-image-slider.css" rel="stylesheet" type="text/css" />
     <script src="js/js-image-slider.js" type="text/javascript"></script>
+
 </head>
 <?php
 /**
@@ -63,7 +65,7 @@ $interview_id = $_POST['interview_id'];
                 $sliderContents = $sliderContents . $additional_string;
 
                 //$unlockButtonsContents = $unlockButtonsContents . '<div rel="' . $i . '" id="unlockButton' . ($i + 1) . '"> L </div>';
-                $unlockButtonsContents = $unlockButtonsContents . '<button type="button" value="'. $i . '" onclick="unlockSlide(this.value)">L</button>';
+                $unlockButtonsContents = $unlockButtonsContents . '<button type="button" value="'. $i . '" onclick="unlockSlide(this.value, ' . $interview_id .')">L</button>';
                 $i = $i +1;
         	}
             ?>
@@ -78,8 +80,16 @@ $interview_id = $_POST['interview_id'];
 </div>
 
 <script>
-    function unlockSlide(number) {
+    function unlockSlide(number, interviewID) {
         //TODO change some permissions somehow (how do we want to do this????) and change the button color to blackish
+
+            $.ajax({
+                url: "changePermissions.php",
+                type: "POST",
+                data: { 'slide_number': number, 'interviewID': interviewID},
+            });
+        $(this).unbind('click'); //TODO make sure unbind is working for security otherwise things will get really fucked really fast
+
     }
 </script>
 
