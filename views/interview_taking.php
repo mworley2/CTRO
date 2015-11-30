@@ -12,8 +12,9 @@
  */
 //echo "taking";
 
-function getSlidesStringForSlider($db_connection, $interview_id)
+function getSlidesStringForSlider($interview_id)
 {
+    $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     $myPermissions = 0; //Scoping
     $case_id = -1;
 
@@ -42,7 +43,7 @@ function getSlidesStringForSlider($db_connection, $interview_id)
         $varString = "";
         while ($row = mysqli_fetch_array($results2)) {
 
-            $slidenum = $row["slide_num"]; //TODO is this the right slidenum?
+            $slidenum = $row["slide_num"];
             $checkNumber = pow(2, ($slidenum -1));
             $imagepath = "";
             if ($myPermissions - $checkNumber >= 0)
@@ -58,7 +59,6 @@ function getSlidesStringForSlider($db_connection, $interview_id)
 
             $additional_string = '<img src= "' . $imagepath . '" width=600 height=400 />';
             $varString = $additional_string . $varString;
-            //TODO go through here checking persmissions the whole time to determine whether to display the path to the slide image or to display (for example) CTRO/resources/lockedSlide.jpg to indicate that the slide is not viewable
         }
         $varString = "'<div id=\"slider\">" . $varString . "</div>'";
         return $varString;
@@ -66,10 +66,8 @@ function getSlidesStringForSlider($db_connection, $interview_id)
     }
 }
 
-$db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
 $interview_id = $_POST['interview_id'];
-
+$db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 $sql = "SELECT interviews.interview_id, interviews.taker_username, interviews.permissions, cases.case_name, cases.style, cases.num_slides, cases.case_id  FROM interviews, uses, cases
         		WHERE interviews.interview_id = '".$interview_id."' AND uses.interview_id = interviews.interview_id AND cases.case_id =  uses.case_id ";
@@ -108,23 +106,15 @@ else{
         }
         function setSliderMarkup() {
             var sliderFrame = document.getElementById("sliderFrame");
-            sliderFrame.innerHTML = <? echo getSlidesStringForSlider($db_connection, $interview_id); ?>;
+            sliderFrame.innerHTML = <?php echo getSlidesStringForSlider($interview_id); ?>;
         }
 
     </script>
 
 
     <div id="sliderFrame"></div>
-    <div id="htmlcaption" style="display: none;">
-        <em>HTML</em> caption. Link to <a href="http://www.google.com/">Google</a>.
-    </div>
-
     <div class="div2">
         <input type="button" onclick="populateSlider()" value="Refresh Slides" />
 
 </body>
 <script type="text/javascript"> populateSlider(); </script>
-<?php
-
-
-?>
