@@ -12,8 +12,9 @@
  */
 //echo "taking";
 
-function getSlidesStringForSlider($interview_id)
+function getSlidesStringForSlider()
 {
+    $interview_id = $_SESSION['interviewID'];
     $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     $myPermissions = 0; //Scoping
     $case_id = -1;
@@ -69,7 +70,7 @@ function getSlidesStringForSlider($interview_id)
 $interview_id = $_POST['interview_id'];
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-$sql = "SELECT interviews.interview_id, interviews.taker_username, interviews.permissions, cases.case_name, cases.style, cases.num_slides, cases.case_id  FROM interviews, uses, cases
+$sql = "SELECT interviews.taker_username, interviews.permissions, cases.case_name, cases.style, cases.num_slides, cases.case_id  FROM interviews, uses, cases
         		WHERE interviews.interview_id = '".$interview_id."' AND uses.interview_id = interviews.interview_id AND cases.case_id =  uses.case_id ";
 $results = $db_connection->query($sql);
 
@@ -98,16 +99,48 @@ else{
 
 ?>
 <body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
+        var myGlobal = 0;
         function populateSlider() {
-            //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider
-            setSliderMarkup();
-            imageSlider.reload();
+            //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider]
+            $.ajax({
+                    type: "POST",
+                    url: "updateSlider.php",
+                    datatype: "html",
+                    data: {'slide_number': 1, 'interviewID': 1},
+                success: function(data){
+                setSliderMarkup(data);
+            }
+        });
+           // imageSlider.reload();
         }
-        function setSliderMarkup() {
+        function setSliderMarkup(htmlString) {
             var sliderFrame = document.getElementById("sliderFrame");
-            sliderFrame.innerHTML = <?php echo getSlidesStringForSlider($interview_id); ?>;
+            var slider = document.getElementById("slider");
+            if (slider != null)
+            {
+                var oldStyle = slider.style;
+
+                (document.getElementsByClassName("active").item(0)).classList.add("temp");
+                //var oldButton = document.getElementsByClassName("active").item(0);
+                //var relVal = $('.active').attr('rel');
+
+                sliderFrame.innerHTML = htmlString;
+                imageSlider.reload();
+                document.getElementById("slider").style.background = oldStyle.background;
+
+                (document.getElementsByClassName("active").item(0)).classList.remove("active");
+                (document.getElementsByClassName("temp").item(0).classList.add("active");
+               // document.getElementsByClassName("active").item(0).classList.remove("temp");
+            }
+            else{
+                sliderFrame.innerHTML = htmlString;
+                imageSlider.reload();
+            }
         }
+    </script>
+    <script type="text/javascript">
 
     </script>
 

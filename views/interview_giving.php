@@ -64,8 +64,7 @@ $interview_id = $_POST['interview_id'];
 	        	$additional_string = '<img src= "'.$imagepath.'" width=600 height=400 />';
                 $sliderContents = $sliderContents . $additional_string;
 
-                //$unlockButtonsContents = $unlockButtonsContents . '<div rel="' . $i . '" id="unlockButton' . ($i + 1) . '"> L </div>';
-                $unlockButtonsContents = $unlockButtonsContents . '<button type="button" value="'. $i . '" onclick="unlockSlide(this.value, ' . $interview_id .')">L</button>';
+                $unlockButtonsContents = $unlockButtonsContents . '<button type="button" id="button'. $i . '" value="'. $i . '" onclick="unlockSlide(this.value, ' . $interview_id .')">L</button>';
                 $i = $i +1;
         	}
             ?>
@@ -81,19 +80,16 @@ $interview_id = $_POST['interview_id'];
 
 <script>
     function unlockSlide(number, interviewID) {
-        //TODO change some permissions somehow (how do we want to do this????) and change the button color to blackish
-       // window.alert(number);
-        //window.alert(interviewID);
-        //header(changePermissions.php?number)
-       // oursite.com/cvan
-
             $.ajax({
                 url: "changePermissions.php",
                 type: "POST",
                 data: { 'slide_number': number, 'interviewID': interviewID}
             });
-        //$(this).unbind('click'); //TODO make sure unbind is working for security otherwise things will get really fucked really fast
-
+        var buttonId = 'button' + number;
+        document.getElementById(buttonId).disabled = true;  //TODO this doesn't work if the page is refreshed
+        document.getElementById(buttonId).style.background = "#000000";
+        document.getElementById(buttonId).style.outlineColor = "#000000";
+        document.getElementById(buttonId).style.color = "#000000";
     }
 </script>
 

@@ -1,12 +1,13 @@
 <?php
 // include the configs / constants for the database connection
+session_start();
 ini_set('display_errors', 1);
 require_once("config/db.php");
 
 require_once("classes/Interview.php");
 
 $interview = new Interview();
-
+$_SESSION['interviewID'] = $interview->myID;
 if ($interview->isTaking() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.

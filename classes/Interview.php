@@ -16,7 +16,7 @@ class Interview
      */
     public $messages = array();
 
-    private $myID = -1;
+    public $myID = -1;
 
 
     public function __construct()
@@ -30,27 +30,9 @@ class Interview
     {
         session_start();
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
         $this->myID = $this->db_connection->real_escape_string(strip_tags($_POST['interview_id'], ENT_QUOTES));
 
-        /*if ($results === FALSE) {
-            echo "FALSE";
-        } else {
-            echo "<h1>Interview </h1>";
-            while ($row = mysqli_fetch_array($results)) {
-                echo 'Interview ID: ' . $row["interview_id"] . ' <br />
-    				Case Name: ' . $row["case_name"] . '  <br />
-    				Giver: ' . $row["giver_username"] . '  <br />
-    			 	Taker: ' . $row["taker_username"] . '<br />';
-
-            }
-
-        }
-    */
-    }//end func interview()
-
-//end class interview
-
+    }
 
     public function isTaking()
     {
@@ -83,14 +65,4 @@ class Interview
     }
 }
 
-
-/*
-            <div class="flexslider home-slider">
-<ul class="slides"><!-- TODO Need to make this longer and user facebook picture -->
-	<li><img alt="Joe Kleinhans and David Kleinhans" src="img/JoeDad.jpg" /></li>
-	<li><img alt="Graduation with friends" src="img/graduation.jpg" /></li>
-	<li><img alt="The Kleinhans Family" src="img/family.jpg" /></li>
-</ul>
-</div>
-*/
 ?>
