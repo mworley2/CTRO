@@ -170,7 +170,7 @@ function stopButton(interviewID) {
 
 
 <div id="finishEverything">
-    <a href="caseFinished.php">End Case (CANT BE UNDONE)</a>
+    <a href="caseFinished.php?interviewID=<?php echo $interview_id;?>">End Case (CANT BE UNDONE)</a>
 </div>
 
 

@@ -16,9 +16,14 @@ require_once("config/db.php");
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 $interviewID = $_SESSION['interviewID'];
+$interviewID = $_GET['interviewID'];
 
 $sql = "UPDATE interviews SET completed = 1 WHERE interviews.interview_id =" . $interviewID . ";";
+$results = $db_connection->query($sql);
 
-$_SESSION['interviewID'] = -1;
 
-header('Location: http://web.engr.illinois.edu/~ctrocs411/index.php');
+?>
+
+<p> Thank you for completing your case! <a href="http://web.engr.illinois.edu/~ctrocs411/index.php"> Return Home </a> </p>
+</body>
+</html>

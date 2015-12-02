@@ -34,9 +34,9 @@ class Interview
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         $this->myID = $this->db_connection->real_escape_string(strip_tags($_POST['interview_id'], ENT_QUOTES));
 
-        $sql = "SELECT interview.completed FROM interviews WHERE interviews.interview_id = '" . $this->myID . "'; ";
+        $sql = "SELECT interviews.completed FROM interviews WHERE interviews.interview_id = " . $this->myID . "; ";
         $result = $this->db_connection->query($sql);
-        $row = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result); //TODO is this not a mysqli result?
 
         $this->interviewCompleted = $row['completed'];
 

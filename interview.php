@@ -13,7 +13,7 @@ if ($interview->isTaking() == true) {
     if ($interview->interviewCompleted == 0)
         include("views/interview_taking.php");
     else if($interview->interviewCompleted == 1)
-        include("views/interview_taking_complete.php");
+        include("views/interview_taking_completed.php");
     else
         include("views/you_shouldnt_be_here.php");
 }

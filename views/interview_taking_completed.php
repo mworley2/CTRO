@@ -12,7 +12,7 @@
  * Date: 12/2/2015
  * Time: 12:17 PM
  */
-
+//require config/db.php ?
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $interviewID = $_POST['interview_id'];
 
