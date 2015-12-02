@@ -45,25 +45,22 @@ if (isset($registration)) {
 }
 ?>
 
-<!-- register form -->
-<form method="post" action="register.php" name="registerform">
+<div class="container">
+    <form method="post" action="register.php" name="registerform" class="form-signin">
+        <h2 class="form-signin-heading">Register</h2>
 
-    <!-- the user name input field uses a HTML5 pattern check -->
-    <label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label>
-    <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
+        <label for="login_input_username" class="sr-only">Username</label>
+        <input id="login_input_username" class="login_input form-control form-top" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" placeholder="Username (Alphanumeric Character Only)" required autofocus>
 
-    <!-- the email input field uses a HTML5 email type check -->
-    <label for="login_input_email">User's email</label>
-    <input id="login_input_email" class="login_input" type="email" name="user_email" required />
+        <label for="login_input_email" class="sr-only">Email Address</label>
+        <input id="login_input_email" class="login_input form-control form-middle" type="email" name="user_email" placeholder="Email Address" required>
 
-    <label for="login_input_password_new">Password (min. 6 characters)</label>
-    <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
+        <label for="login_input_password_new>" class="sr-only">Password</label>
+        <input id="login_input_password_new" class="login_input form-controll form-middle" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" placeholder="Password (Min. 6 Characters)">
 
-    <label for="login_input_password_repeat">Repeat password</label>
-    <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
-    <input type="submit"  name="register" value="Register" />
+        <label for="login_input_password_repeat">Repeat Password</label>
+        <input id="login_input_password_repeat" class="login_input form-control form-bottom" type="passwprd" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" placeholder="Repeat Password">
 
-</form>
-
-<!-- backlink -->
-<a href="../index.php">Back to Login Page</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="register">Register</button>
+    </form>
+</div>
