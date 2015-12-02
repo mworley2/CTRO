@@ -50,15 +50,15 @@ if (isset($registration)) {
         <h2 class="form-signin-heading">Register</h2>
 
         <label for="login_input_username" class="sr-only">Username</label>
-        <input id="login_input_username" class="login_input form-control form-top" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" placeholder="Username (Alphanumeric Character Only)" required autofocus>
+        <input id="login_input_username" class="login_input form-control form-top" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" placeholder="Username (Alphanumeric Only)" required autofocus>
 
         <label for="login_input_email" class="sr-only">Email Address</label>
-        <input id="login_input_email" class="login_input form-control form-middle" type="email" name="user_email" placeholder="Email Address" required>
+        <input id="login_input_email" class="login_input form-control form-middle" type="email" name="user_email" placeholder="Email Address" required autocomplete="off">
 
         <label for="login_input_password_new>" class="sr-only">Password</label>
-        <input id="login_input_password_new" class="login_input form-controll form-middle" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" placeholder="Password (Min. 6 Characters)">
+        <input id="login_input_password_new" class="login_input form-control form-middle" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" placeholder="Password (Min Length 6)">
 
-        <label for="login_input_password_repeat">Repeat Password</label>
+        <label for="login_input_password_repeat" class="sr-only">Repeat Password</label>
         <input id="login_input_password_repeat" class="login_input form-control form-bottom" type="passwprd" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" placeholder="Repeat Password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="register">Register</button>
