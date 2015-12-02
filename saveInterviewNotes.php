@@ -11,6 +11,8 @@ if(isset($_POST['notes']) ){
 
 	$sql = "UPDATE interviews SET notes =  " . $notes . "     WHERE interview_id = " . $thisID . ";";
 	$results = $db_connection->query($sql);
+
+
 }
 
  
