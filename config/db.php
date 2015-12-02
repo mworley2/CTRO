@@ -14,12 +14,12 @@
 
 
  //For Maggy
-/*
+
 define("DB_HOST", "localhost");
 define("DB_NAME", "login");
 define("DB_USER", "root");
 define("DB_PASS", "root");
-*/
+
 
 /* For Joe
 define("DB_HOST", "127.0.0.1");
@@ -30,8 +30,9 @@ define("DB_PASS", "otcradmin");
 
 
 // For cPanel
-
+/*
 define("DB_HOST", "127.0.0.1");
 define("DB_NAME", "ctrocs41_login");
 define("DB_USER", "ctrocs41_admin");
 define("DB_PASS", "otcradmin");
+*/

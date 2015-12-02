@@ -83,7 +83,35 @@ else{
     echo '</div>';
     // $varString =
 }
+
+
+
+   echo"Rate this Case from 1-5:";
+   for($i=1;$i<6;$i++){
+
+  echo '<button type="button" id="button'. $i . '" value="'. $i . '" onclick="rateCase(this.value, ' . $interview_id .', '. $case_id.')"> '. $i .'</button>';
+    }
+    echo '<br />';
+
+
+
 ?>
+<script>
+function rateCase(case_rating, interviewID, caseID){
+
+    alert("gethere");
+    $.ajax({
+                url: "rateCase.php",
+                type: "POST",
+                data: { 'case_rating': case_rating, 'interviewID': interviewID, 'caseID' : caseID}
+            });
+
+}
+
+
+</script>
+
+
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
