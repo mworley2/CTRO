@@ -45,9 +45,10 @@ class Modify_Case
             $modification = $this->db_connection->query($sql);
 
             if($modification)
-                echo "SUCCESSFUL MODIFICATION";
+                echo "Modification Successful!";
             else
-                echo "MODIFICATION FAILURE";
+                echo "Modification Failed!";
+            echo '<br/><a href="http://web.engr.illinois.edu/~ctrocs411/case.php?case_id=' . $case_id .'"> Return to Case </a>';
         } else {
             $this->errors[] = "Sorry, you do not have access to that case.";
         }
