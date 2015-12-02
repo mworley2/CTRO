@@ -25,7 +25,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="signin.php">Sign In</a></li>
-        <li><a href="register.php/">Register</a></li>
+        <li><a href="register.php">Register</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

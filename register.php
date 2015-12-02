@@ -1,33 +1,48 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/favicon.ico">
 
-/**
- * A simple, clean and secure PHP Login Script / MINIMAL VERSION
- * For more versions (one-file, advanced, framework-like) visit http://www.php-login.net
- *
- * Uses PHP SESSIONS, modern password-hashing and salting and gives the basic functions a proper login system needs.
- *
- * @author Panique
- * @link https://github.com/panique/php-login-minimal/
- * @license http://opensource.org/licenses/MIT MIT License
- */
+    <title>Register</title>
 
-// checking for minimum PHP version
-if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-    exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
-} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    // if you are using PHP 5.3 or PHP 5.4 you have to include the password_api_compatibility_library.php
-    // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
-    require_once("libraries/password_compatibility_library.php");
-}
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-// include the configs / constants for the database connection
-require_once("config/db.php");
-// load the registration class
-require_once("classes/Registration.php");
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-// create the registration object. when this object is created, it will do all registration stuff automatically
-// so this single line handles the entire registration process.
-$registration = new Registration();
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
 
-// show the register view (with the registration form, and messages/errors)
-include("views/register.php");
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="css/signin_form.css" rel="stylesheet">
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+      <?php include("views/logged_out_navbar.php"); ?>
+
+      </div>
+    </div>
+
+    <?php include("views/register.php"); ?>
+    
+  </body>
+</html>
