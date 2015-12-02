@@ -11,14 +11,12 @@
  * Time: 4:44 PM
  */
 //echo "taking";
-
 function getSlidesStringForSlider()
 {
     $interview_id = $_SESSION['interviewID'];
     $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     $myPermissions = 0; //Scoping
     $case_id = -1;
-
     $sql = "SELECT interviews.permissions, cases.case_id  FROM interviews, uses, cases
         		WHERE interviews.interview_id = '".$interview_id."' AND uses.interview_id = interviews.interview_id AND cases.case_id =  uses.case_id ";
     $results = $db_connection->query($sql);
@@ -27,7 +25,6 @@ function getSlidesStringForSlider()
         $case_id = $row["case_id"];
         $myPermissions = $row["permissions"];
     }
-
     if ($results === FALSE) {
         echo "First query failed";
         return;
@@ -35,15 +32,12 @@ function getSlidesStringForSlider()
 //NOTE I am doing these in reverse to accomadate binary permissions (the same as chmod 577 for example) you have to subtract the biggest number out first
     $sql2 = "SELECT  slides.path_to_slide, slides.slide_num  FROM  slides
         		WHERE slides.case_id = '" . $case_id . "' ORDER BY slides.slide_num DESC";
-
     $results2 = $db_connection->query($sql2);
     if ($results2 === FALSE) {
         echo "second query failed";
     } else {
-
         $varString = "";
         while ($row = mysqli_fetch_array($results2)) {
-
             $slidenum = $row["slide_num"];
             $checkNumber = pow(2, ($slidenum -1));
             $imagepath = "";
@@ -57,23 +51,18 @@ function getSlidesStringForSlider()
             {
                 $imagepath = 'CTRO/resources/slide_storage/Locked.jpg';
             }
-
             $additional_string = '<img src= "' . $imagepath . '" width=600 height=400 />';
             $varString = $additional_string . $varString;
         }
         $varString = "'<div id=\"slider\">" . $varString . "</div>'";
         return $varString;
-
     }
 }
-
 $interview_id = $_POST['interview_id'];
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
 $sql = "SELECT interviews.taker_username, interviews.permissions, cases.case_name, cases.style, cases.num_slides, cases.case_id  FROM interviews, uses, cases
         		WHERE interviews.interview_id = '".$interview_id."' AND uses.interview_id = interviews.interview_id AND cases.case_id =  uses.case_id ";
 $results = $db_connection->query($sql);
-
 $case_id = -1;
 $myPermissions = 0;
 if($results === FALSE ){
@@ -82,7 +71,6 @@ if($results === FALSE ){
 else{
     echo"<h1>Interview</h1>";
     echo"<div>";
-
     while($row = mysqli_fetch_array($results))
     {
         $case_id = $row["case_id"];
@@ -93,61 +81,52 @@ else{
         $myPermissions = $row["permissions"];
     }
     echo '</div>';
-
-   // $varString =
+    // $varString =
 }
-
 ?>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        var myGlobal = 0;
-        function populateSlider() {
-            //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider]
-            $.ajax({
-                    type: "POST",
-                    url: "updateSlider.php",
-                    datatype: "html",
-                    data: {'slide_number': 1, 'interviewID': 1},
-                success: function(data){
+<script type="text/javascript">
+    var myGlobal = 0;
+    function populateSlider() {
+        //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider]
+        $.ajax({
+            type: "POST",
+            url: "updateSlider.php",
+            datatype: "html",
+            data: {'slide_number': 1, 'interviewID': 1},
+            success: function(data){
                 setSliderMarkup(data);
             }
+
         });
-           // imageSlider.reload();
+
+
+    }
+    function setSliderMarkup(htmlString) {
+        var sliderFrame = document.getElementById("sliderFrame");
+        var slider = document.getElementById("slider");
+        if (slider != null)
+        {
+            var oldStyle = slider.style;
+            sliderFrame.innerHTML = htmlString;
+            imageSlider.reload();
+            document.getElementById("slider").style.background = oldStyle.background;
         }
-        function setSliderMarkup(htmlString) {
-            var sliderFrame = document.getElementById("sliderFrame");
-            var slider = document.getElementById("slider");
-            if (slider != null)
-            {
-                var oldStyle = slider.style;
-
-                (document.getElementsByClassName("active").item(0)).classList.add("temp");
-                //var oldButton = document.getElementsByClassName("active").item(0);
-                //var relVal = $('.active').attr('rel');
-
-                sliderFrame.innerHTML = htmlString;
-                imageSlider.reload();
-                document.getElementById("slider").style.background = oldStyle.background;
-
-                (document.getElementsByClassName("active").item(0)).classList.remove("active");
-                (document.getElementsByClassName("temp").item(0).classList.add("active");
-               // document.getElementsByClassName("active").item(0).classList.remove("temp");
-            }
-            else{
-                sliderFrame.innerHTML = htmlString;
-                imageSlider.reload();
-            }
+        else{
+            sliderFrame.innerHTML = htmlString;
+            imageSlider.reload();
         }
-    </script>
-    <script type="text/javascript">
+    }
+</script>
+<script type="text/javascript">
+</script>
 
-    </script>
 
-
-    <div id="sliderFrame"></div>
-    <div class="div2">
-        <input type="button" onclick="populateSlider()" value="Refresh Slides" />
+<div id="sliderFrame"></div>
+<div class="div2">
+    <input type="button" onclick="populateSlider()" value="Refresh Slides" />
 
 </body>
-<script type="text/javascript"> populateSlider(); </script>
+<script type="text/javascript"> populateSlider();
+    setInterval(populateSlider,3000); </script>
