@@ -12,6 +12,16 @@
  * Date: 12/2/2015
  * Time: 12:17 PM
  */
+
+$db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$interviewID = $_POST['interview_id'];
+
+$sql = "SELECT interviews.giver_username, interviews.timeTaken, cases.case_id, cases.case_name, cases.style FROM interviews, uses,cases WHERE interviews.interview_id ==" . $interviewID . " AND interviews.interview_id = uses.interview_ID AND uses.case_id = cases.case_id;";
+$results = $db_connection->query($sql);
+$row = mysqli_fetch_array($results);
+
+echo '<div id="interviewInformation"><ul> <li>You were interviewed by: '. $row['giver_username'] . '</li> <li>Your interview took '. $row['timeTaken'] . ' seconds</li><li> Thank you for using our service!</li></ul> </div>';
+
 ?>
 
 </html>
