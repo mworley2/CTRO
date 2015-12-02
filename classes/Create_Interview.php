@@ -63,6 +63,21 @@ class Create_Interview{
         }
 
 
+       /* $sql = "SELECT times_taken FROM cases WHERE case_id = ". $case_id ."; ";
+
+        $results = $db_connection->query($sql);
+
+        while($row = mysqli_fetch_array($results)){
+            $times_taken = $row["times_taken"];
+        
+        }*/
+
+        //$sql = "UPDATE cases SET times_taken =  times_taken +1  WHERE case_id = ".$case_id." ;";
+        $sql = "UPDATE cases SET times_taken =  times_taken +1  WHERE case_id = ".$case_id."; ";
+        $results = $db_connection->query($sql);
+
+
+
     }
 
 
