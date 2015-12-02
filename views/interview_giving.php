@@ -2,6 +2,7 @@
 <head>
     <script type="text/javascript" src="js/jquery-1.11.3.js"> </script>
     <link href="css/js-image-slider.css" rel="stylesheet" type="text/css" />
+    <link href="css/interview.css" rel="stylesheet" type="text/css" />
     <script src="js/js-image-slider.js" type="text/javascript"></script>
 
 </head>
@@ -44,7 +45,7 @@ $interview_id = $_POST['interview_id'];
     	    echo '</div>';
         }
 
- $sql2 = "SELECT  slides.path_to_slide  FROM  slides
+    $sql2 = "SELECT  slides.path_to_slide  FROM  slides
         		WHERE slides.case_id = '".$case_id."' ";
 
 
@@ -68,6 +69,44 @@ $interview_id = $_POST['interview_id'];
                 $i = $i +1;
         	}
             ?>
+
+
+
+<button onclick='startButton()'>Start</button>
+<br>
+<button onclick="stopButton(<?php echo $interview_id ?>)">Stop</button>
+<br>
+
+<script>
+
+var startTime;
+
+function startButton() {
+    startTime = Date.now();
+
+}
+
+function stopButton(interviewID) {
+    if (startTime) {
+        var endTime = Date.now();
+        var difference = endTime - startTime;
+        //alert('Reaction time: ' + difference + ' ms');
+        $.ajax({
+                url: "saveInterviewTime.php",
+                type: "POST",
+                data: { difference: difference, 'interviewID': interviewID}
+            });
+
+        startTime = null;
+    } else {
+        alert('Click the Start button first');
+    }
+}
+
+</script>
+
+</head>
+
 <body>
 <div id="sliderFrame">
     <div id="slider">
@@ -94,6 +133,48 @@ $interview_id = $_POST['interview_id'];
 </script>
 
 </body>
+
+
+
+
+<footer>
+
+<!--<form method="post" action="saveInterviewNotes.php" name="Add Notes"> 
+    <textarea placeholder="Enter notes." name = "notes" id="textareaID"  rows="20" style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px; "></textarea>
+    <input type="submit"  name="notes_input" value="Add Notes" />
+</form>-->
+
+<textarea placeholder="Enter notes." name = "notes" id="textareaID"  rows="20" style="overflow: hidden; word-wrap: break-word; resize: none; height: 160px; "></textarea>
+<br>
+<button onclick="getNotes(<?php echo $interview_id ?>)">Add Notes</button> 
+
+</footer>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script language="javascript">
+
+  function getNotes(interviewID){
+      var notes =  document.getElementById("textareaID").value;
+      if(notes != null){
+            alert("get here");
+           $.ajax({
+                    url: "saveInterviewNotes.php",
+                    type: "POST",
+                    data: { notes : notes, 'interviewID': interviewID}
+
+                }).done(function( msg ) {
+          alert( "Data Saved: " + msg );
+        });
+
+        }
+        else{
+            alert("no notes");
+        }
+    }
+
+</script>
+
+
 
                 <?php
         }

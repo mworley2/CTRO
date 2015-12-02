@@ -1,0 +1,52 @@
+/*input id="button" onClick'getNotes(<?php echo $notes ?>, <?php echo $interview_id ?>)' value="Add Notes"> */
+
+textarea#area {
+    width: 425px;
+    height: 400px;
+    padding: 0 0 20px;
+    line-height: 30px;
+    /*background: #fff url("http://i.stack.imgur.com/UfzKa.jpg") no-repeat -75px -160px */
+}
+
+
+textarea#note {
+
+outline:none;
+
+border:none;
+
+margin:0px;
+
+padding-top:px;
+
+font-family:Courier, monospace;
+ width: 300px;
+    height: 400px;
+
+}
+
+
+
+#paper {
+
+color:#FFF;
+
+font-size:20px;
+padding-top:100px;
+
+
+}
+
+#margin {
+
+margin-left:12px;
+
+margin-bottom:20px;
+
+-webkit-user-select: none;
+
+-moz-user-select: none;
+
+-ms-user-select: none;
+
+-o-user-select: none;
