@@ -5,8 +5,6 @@ if(isset($_POST['difference'])){
 	$timeTaken = $_POST['difference']/1000;
 	$thisID = $_POST['interviewID'];
 }
-
-//TODO- convert timeTaken from miliseconds to minutes before inserting into db
 $sql = "UPDATE interviews SET timeTaken =  " . $timeTaken . "     WHERE interview_id = " . $thisID . ";";
 $results = $db_connection->query($sql);
 
