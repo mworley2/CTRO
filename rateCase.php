@@ -6,6 +6,11 @@ $interviewID = $_POST['interviewID'];
 $caseID = $_POST['caseID'];
 
 
+//update this interview's rating to the given case_rating
+$sql = "UPDATE interviews SET rating = ". $case_rating." WHERE interview_id =  ". $interviewID ."; ";
+$results = $db_connection->query($sql);
+
+
 //initially avg_rating and times_rated will be 0
 $sql = "SELECT avg_rating, times_rated FROM cases WHERE case_id = ".$caseID." ;";
 
