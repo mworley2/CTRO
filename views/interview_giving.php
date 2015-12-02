@@ -41,7 +41,7 @@ $interview_id = $_POST['interview_id'];
     				Number of slides: ' .$row["num_slides"]. ' <br />
     			 	Interviewee: '.$row["taker_username"].'<br />';
 			}
-            echo '<a href="Statistics.php?ID=' . $interview_id . '"> Begin Interview</a><br />'; //TODO statistics class inserts start time into "interviews" so change that database
+
     	    echo '</div>';
         }
 

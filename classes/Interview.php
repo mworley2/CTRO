@@ -36,7 +36,7 @@ class Interview
 
         $sql = "SELECT interviews.completed FROM interviews WHERE interviews.interview_id = " . $this->myID . "; ";
         $result = $this->db_connection->query($sql);
-        $row = mysqli_fetch_array($result); //TODO is this not a mysqli result?
+        $row = mysqli_fetch_array($result);
 
         $this->interviewCompleted = $row['completed'];
 

@@ -18,7 +18,7 @@ class Upload_Slides
 
     public function __construct()
     {
-        if (isset($_POST["register"])) {    //TODO not sure how this will be posting from upload case
+        if (isset($_POST["register"])) {
             $this->uploadNewSlides();
         }
     }

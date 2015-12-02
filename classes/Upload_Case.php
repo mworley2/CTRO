@@ -50,7 +50,7 @@
             require_once('fpdf17/fpdf.php');
             require_once('fpdi/fpdi.php');
             $pdf = new FPDI();
-            $num_slides = $pdf->setSourceFile($case_slides); //TODO once PDF splitting works
+            $num_slides = $pdf->setSourceFile($case_slides);
 
             $sql = "INSERT INTO cases (case_id, case_name, style, num_slides, times_taken, avg_time)
                                 VALUES(NULL, '" . $case_name . "', '" . $case_style . "', '" . $num_slides . "', '0','0.0');";
