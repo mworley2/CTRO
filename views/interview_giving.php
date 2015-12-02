@@ -180,7 +180,5 @@ function stopButton(interviewID) {
         }
 
 
-
-    
-
 ?>
+</html>
