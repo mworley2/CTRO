@@ -14,17 +14,20 @@ if (isset($login)) {
 }
 ?>
 
-<!-- login form box -->
-<form method="post" action="index.php" name="loginform">
+<div class="container">
+    <form method="post" action="index.php" name="loginform" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
 
-    <label for="login_input_username">Username</label>
-    <input id="login_input_username" class="login_input" type="text" name="user_name" required />
+        <label for="login_input_username" class="sr-only">Username</label>
+        <input id="login_input_username" class="form-control" type="text" name="user_name" placeholder="Username" required autofocus>
 
-    <label for="login_input_password">Password</label>
-    <input id="login_input_password" class="login_input" type="password" name="user_password" autocomplete="off" required />
+        <label for="login_input_password">Password</label>
+        <input id="login_input_password" class="form-control" type="passwprd" name="user_password" autocomplete="off" placeholder="Password" required>
 
-    <input type="submit"  name="login" value="Log in" />
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Sign in</button>
+    </form>
 
-</form>
+    <h3>No Account? No Problem.</h3>
+    <button href="register.php">Register Here</button>
+</div>
 
-<a href="register.php">Register new account</a>
