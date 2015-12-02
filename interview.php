@@ -9,17 +9,22 @@ require_once("classes/Interview.php");
 $interview = new Interview();
 $_SESSION['interviewID'] = $interview->myID;
 if ($interview->isTaking() == true) {
-    // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
-    //include("views/interview_taking2.php");
 
-    include("views/interview_taking.php");
+    if ($interview->interviewCompleted == 0)
+        include("views/interview_taking.php");
+    else if($interview->interviewCompleted == 1)
+        include("views/interview_taking_complete.php");
+    else
+        include("views/you_shouldnt_be_here.php");
 }
 else if ($interview->isGiving() == true )
 {
-    // the user is not logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are not logged in" view.
-    include("views/interview_giving.php");
+    if ($interview->interviewCompleted == 0)
+        include("views/interview_giving.php"); //Interview is not completed
+    else if ($interview->interviewCompleted == 1)
+        include("views/interview_giving_completed.php");
+    else
+        include("views/you_shouldnt_be_here.php");
 }
 else
     echo "ERROR, THIS USER ISN'T PART OF THE INTERVIEW";
