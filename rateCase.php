@@ -30,9 +30,6 @@ else{
 	$results2 = $db_connection->query($sql2);
 }
 
-
-
-
 //$sql = "UPDATE cases SET avg_rating =  10  WHERE case_id = ".$caseID." ;";
 
 
