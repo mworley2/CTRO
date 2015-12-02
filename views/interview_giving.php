@@ -68,7 +68,12 @@ $interview_id = $_POST['interview_id'];
                 $unlockButtonsContents = $unlockButtonsContents . '<button type="button" id="button'. $i . '" value="'. $i . '" onclick="unlockSlide(this.value, ' . $interview_id .')">L</button>';
                 $i = $i +1;
         	}
-            ?>
+    
+
+
+
+
+    ?>
 
 
 
@@ -76,6 +81,37 @@ $interview_id = $_POST['interview_id'];
 <br>
 <button onclick="stopButton(<?php echo $interview_id ?>)">Stop</button>
 <br>
+
+
+
+
+<?php 
+
+   echo"Rate this Case from 1-5:";
+   for($i=1;$i<6;$i++){
+
+  echo '<button type="button" id="button'. $i . '" value="'. $i . '" onclick="rateCase(this.value, ' . $interview_id .', '. $case_id.')"> '. $i .'</button>';
+    }
+    echo '<br />';
+
+
+?>
+
+<script>
+function rateCase(case_rating, interviewID, caseID){
+
+    alert("gethere");
+    $.ajax({
+                url: "rateCase.php",
+                type: "POST",
+                data: { 'case_rating': case_rating, 'interviewID': interviewID, 'caseID' : caseID}
+            });
+
+}
+
+
+</script>
+
 
 <script>
 
