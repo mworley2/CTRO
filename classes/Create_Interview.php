@@ -74,7 +74,7 @@ class Create_Interview{
 
         //$sql = "UPDATE cases SET times_taken =  times_taken +1  WHERE case_id = ".$case_id." ;";
         $sql = "UPDATE cases SET times_taken =  times_taken +1  WHERE case_id = ".$case_id."; ";
-        $results = $db_connection->query($sql);
+        $results = $this->db_connection->query($sql);
 
 
 

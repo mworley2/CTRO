@@ -13,7 +13,12 @@
  * User: kleinhansjy
  * Date: 12/2/2015
  * Time: 12:17 PM
+ *
  */
+//Include db config?
+$db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+$sql = "SELECT "
 ?>
 
 </html>
