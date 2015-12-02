@@ -168,6 +168,14 @@ function stopButton(interviewID) {
     }
 </script>
 
+
+<div id="finishEverything">
+    <a href="caseFinished.php">End Case (CANT BE UNDONE)</a>
+</div>
+
+
+
+
 </body>
 
 
