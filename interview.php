@@ -6,7 +6,8 @@ require_once("config/db.php");
 
 require_once("classes/Interview.php");
 
-$interview = new Interview();
+$interview = new Interview($_GET['interview_id']);
+//$_POST['interview_id'] = $_GET['interview_id']; //TODO get rid of
 $_SESSION['interviewID'] = $interview->myID;
 if ($interview->isTaking() == true) {
 

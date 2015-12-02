@@ -55,7 +55,7 @@ function getSlidesStringForSlider()
     }
 }
 
-$interview_id = $_POST['interview_id'];
+$interview_id = $_GET['interview_id'];
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 $sql = "SELECT interviews.taker_username, interviews.permissions, cases.case_name, cases.style, cases.num_slides, cases.case_id  FROM interviews, uses, cases
         		WHERE interviews.interview_id = '" . $interview_id . "' AND uses.interview_id = interviews.interview_id AND cases.case_id =  uses.case_id ";

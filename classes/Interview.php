@@ -21,18 +21,16 @@ class Interview
     public $myID = -1;
 
 
-    public function __construct()
+    public function __construct($interview_id)
     {
-        if (isset($_POST["interview"])) {
-            $this->Interview();
-        }
+            $this->Interview($interview_id);
     }
 
-    private function Interview()
+    private function Interview($interview_id)
     {
         session_start();
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        $this->myID = $this->db_connection->real_escape_string(strip_tags($_POST['interview_id'], ENT_QUOTES));
+        $this->myID = $interview_id;
 
         $sql = "SELECT interviews.completed FROM interviews WHERE interviews.interview_id = " . $this->myID . "; ";
         $result = $this->db_connection->query($sql);

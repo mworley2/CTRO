@@ -40,28 +40,18 @@ echo "<h1>My Interviews</h1>";
 if ($results === FALSE) {
     echo "FALSE";
 } else {
-    while ($row = mysqli_fetch_array($results)) {
-        echo 'Interview ID: ' . $row["interview_id"] . '  Giver: ' . $row["giver_username"] . '   Taker: ' . $row["taker_username"] . '<br />';
-
+    echo "<ul>";
+    while ($row = mysqli_fetch_array($results))
+    {
+        echo '<li><a href="http://web.engr.illinois.edu/~ctrocs411/interview.php?interview_id=' . $row["interview_id"] .'"> ' . $row["giver_username"] . ' Interviewing ' . $row["taker_username"] . ' In Interview ' .  $row["interview_id"] .' </a></li>';
     }
-
+        echo "</ul>";
 }
 
 ?>
 
     <br/>
-    <form method="post" action="interview.php" name="Go to Interview">
-        <!-- return to this page after executing and updating -->
 
-        <label for="interview_id_input">ID of the Interview you would like to go to: </label>
-        <input id="interview_id_input" class="interview_input" type="text" name="interview_id" required/>
-        <input type="submit" name="interview" value="Go to Interview"/>
-        <!-- There needs to be something that this submission triggers -->
-
-    </form>
-
-
-    <br/>
     <!-- TODO Create a delete class (simple just needs to delete case from EVERY ONE of our tables) -->
     <h1>Case Deletion</h1>
     <form method="post" action="Delete.php" name="Delete Case">
