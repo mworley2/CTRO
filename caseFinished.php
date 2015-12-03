@@ -36,9 +36,6 @@ $results = $db_connection->query($sql);
       <div class="jumbotron">
         <h1>Case Finished!</h1>
        	<p> Thank you for completing your case! </p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
       </div>
     </div> <!-- /container -->
 

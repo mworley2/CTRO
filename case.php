@@ -14,8 +14,9 @@
   <body>
 
     <?php include("views/logged_in_navbar.php"); ?>
-
-    <?php include("views/case.php"); ?>
+    <div class="jumbotron">
+        <?php include("views/case.php"); ?>
+    </div>
 
     <?php include("views/bootstrapfoot.html"); ?>
   </body>

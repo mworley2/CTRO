@@ -14,7 +14,7 @@ session_start();
     	<?php include("views/logged_in_navbar.php"); ?>
     	
       <div class="jumbotron">
-        <h1>Navbar example</h1>
+        <h1>Modification Successful</h1>
 		<?php
 		// include the configs / constants for the database connection
 		require_once("config/db.php");
@@ -26,10 +26,6 @@ session_start();
 
 		// show the register view (with the registration form, and messages/errors)
 		?>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
       </div>
 
 

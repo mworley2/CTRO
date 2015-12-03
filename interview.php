@@ -17,7 +17,6 @@ ini_set('display_errors', 1);
         <?php include("views/logged_in_navbar.php"); ?>
         
       <div class="jumbotron">
-        <h1>Interview</h1>
         <?php require_once("config/db.php");
 
         require_once("classes/Interview.php");

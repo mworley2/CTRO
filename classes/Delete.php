@@ -40,6 +40,6 @@ class Delete
         } else {
             echo "Deletion Failed";
         }
-        echo '<a href="http://web.engr.illinois.edu/~ctrocs411/view_cases.php"> Return to cases view </a>';
+        echo '<br><a href="http://web.engr.illinois.edu/~ctrocs411/view_cases.php"><button class="btn btn-primary">Return to Cases</button></a>';
     }
 }

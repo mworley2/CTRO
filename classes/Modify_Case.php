@@ -47,7 +47,7 @@ class Modify_Case
                 echo "Modification Successful!";
             else
                 echo "Modification Failed!";
-            echo '<br/><a href="http://web.engr.illinois.edu/~ctrocs411/case.php?case_id=' . $case_id .'"> Return to Case </a>';
+            echo '<br/><a href="http://web.engr.illinois.edu/~ctrocs411/case.php?case_id=' . $case_id .'"> <button class="btn btn-primary">Return to Case</button> </a>';
         } else {
             $this->errors[] = "Sorry, you do not have access to that case.";
         }
