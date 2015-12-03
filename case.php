@@ -91,4 +91,6 @@ if ($case_id != 0)//TODO Does the user own the case? security----
     </div>
 </div>
 
+<a href="index.php">Back to Home Page</a>
+
 </body>
