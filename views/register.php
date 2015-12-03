@@ -59,7 +59,7 @@ if (isset($registration)) {
         <input id="login_input_password_new" class="login_input form-control form-middle" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" placeholder="Password (Min Length 6)">
 
         <label for="login_input_password_repeat" class="sr-only">Repeat Password</label>
-        <input id="login_input_password_repeat" class="login_input form-control form-bottom" type="passwprd" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" placeholder="Repeat Password">
+        <input id="login_input_password_repeat" class="login_input form-control form-bottom" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" placeholder="Repeat Password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="register">Register</button>
     </form>

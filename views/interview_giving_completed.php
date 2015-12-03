@@ -14,9 +14,9 @@
  */
 //Include db config?
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-$interviewID = $_POST['interview_id'];
+$interviewID = $_GET['interview_id'];
 
-$sql = "SELECT interviews.taker_username, interviews.timeTaken, interviews.notes, interviews.rating, cases.case_id, cases.case_name, cases.style, cases.avg_time, cases.avg_rating FROM interviews, uses,cases WHERE interviews.interview_id =" . $interviewID . " AND interviews.interview_id = uses.interview_ID AND uses.case_id = cases.case_id;";
+$sql = "SELECT interviews.taker_username, interviews.timeTaken, interviews.notes, interviews.rating, cases.case_id, cases.case_name, cases.style, cases.avg_time, cases.avg_rating FROM interviews, uses,cases WHERE interviews.interview_id =" . $interviewID . " AND interviews.interview_id = uses.interview_id AND uses.case_id = cases.case_id;";
 $results = $db_connection->query($sql);
 echo mysqli_error($db_connection);
 $row = mysqli_fetch_array($results);
