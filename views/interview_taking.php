@@ -80,26 +80,9 @@ if ($results === FALSE) {
 }
 
 
-echo "Rate this Case from 1-5:";
-for ($i = 1; $i < 6; $i++) {
-
-    echo '<button type="button" id="button' . $i . '" value="' . $i . '" onclick="rateCase(this.value, ' . $interview_id . ', ' . $case_id . ')"> ' . $i . '</button>';
-}
-echo '<br />';
 
 
 ?>
-<script>
-    function rateCase(case_rating, interviewID, caseID) {
-        
-        $.ajax({
-            url: "rateCase.php",
-            type: "POST",
-            data: {'case_rating': case_rating, 'interviewID': interviewID, 'caseID': caseID}
-        });
-
-    }
-</script>
 
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -107,18 +90,19 @@ echo '<br />';
     var myGlobal = 0;
     function populateSlider() {
         //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider]
+
         $.ajax({
             type: "POST",
             url: "updateSlider.php",
             datatype: "html",
             data: {'slide_number': 1, 'interviewID': 1},
-            success: function (data) {
+            success: function (data)
+            {
                 setSliderMarkup(data);
             }
-
         });
-
     }
+
     function setSliderMarkup(htmlString) {
         var sliderFrame = document.getElementById("sliderFrame");
         var slider = document.getElementById("slider");
@@ -144,4 +128,4 @@ echo '<br />';
 
 </body>
 <script type="text/javascript"> populateSlider();
-    setInterval(populateSlider, 3000); </script>
+    setInterval(populateSlider, 2000); </script>
