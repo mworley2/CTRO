@@ -9,6 +9,27 @@ require_once("classes/Upload_Case.php");
 // so this single line handles the entire upload process.
 $upload = new Upload_Case();
 // show the register view (with the registration form, and messages/errors) s
-include("views/upload_case.php");
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<?php include("views/bootstraphead.html"); ?>
+  	<title>Upload Case</title>
+    <link href="uploadcase.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="container">
+    	<?php include("views/logged_in_navbar.php"); ?>
+    	<?php include("views/upload_case.php"); ?>
+
+
+    </div> <!-- /container -->
+
+
+    <?php include("views/bootstrapfoot.html"); ?>
+  </body>
+</html>
