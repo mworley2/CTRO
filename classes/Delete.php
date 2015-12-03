@@ -23,7 +23,6 @@ class Delete
 
     private function deleteCase()
     {
-        session_start();
 
         //TODO check that username,case_id exists in the owns table or else its ilelegal deletion and we say you failed
 
