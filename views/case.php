@@ -16,7 +16,7 @@ $results = $db_connection->query($sql);
 $row = mysqli_fetch_array($results);
 ?>
 
-    <?php if ($case_id != 0)//TODO Does the user own the case? security----
+    <?php if ($case_id != 0)
     {
         echo '<div class="panel panel-primary">
     <div class="panel-heading">

@@ -24,8 +24,6 @@ class Delete
     private function deleteCase()
     {
 
-        //TODO check that username,case_id exists in the owns table or else its ilelegal deletion and we say you failed
-
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         $deletionID = $_GET["case_id"];
         $sql = "DELETE FROM cases WHERE cases.case_id= '". $deletionID ."';";
