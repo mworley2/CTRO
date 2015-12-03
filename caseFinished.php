@@ -26,7 +26,7 @@ $results = $db_connection->query($sql);
 
 <p> Thank you for completing your case! </p>
 <ul>
-    <a href="http://web.engr.illinois.edu/~ctrocs411/interview.php?interview_id=<?php echo $interviewID;?>.php">View Interview Stats</a>
+   <!--  <a href="http://web.engr.illinois.edu/~ctrocs411/interview.php?interview_id=<?php// echo $interviewID;?>.php">View Interview Stats</a> -->
     <a href="http://web.engr.illinois.edu/~ctrocs411/index.php"> Return Home </a>
 </ul>
 </body>

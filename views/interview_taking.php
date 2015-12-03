@@ -123,9 +123,11 @@ if ($results === FALSE) {
 
 
 <div id="sliderFrame"></div>
-<div class="div2">
-    <input type="button" onclick="populateSlider()" value="Refresh Slides"/>
+
+<!-- <div class="div2">
+    <input type="button" onclick="populateSlider()" value="Refresh Slides"/> -->
 
 </body>
 <script type="text/javascript"> populateSlider();
-    setInterval(populateSlider, 2000); </script>
+    setInterval(populateSlider, 3000); </script>
+<a href="http://web.engr.illinois.edu/~ctrocs411/"> Return Home </a>;

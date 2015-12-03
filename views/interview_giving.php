@@ -148,7 +148,7 @@ if ($results2 === FALSE) {
                 data: {notes: notes, 'interviewID': interviewID}
 
             }).done(function (msg) {
-                alert("Data Saved: " + msg);
+                alert("Notes Saved Successfully");
             });
 
         }
