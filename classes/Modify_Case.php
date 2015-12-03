@@ -25,7 +25,6 @@ class Modify_Case
 
     private function ModifyCase()
     {
-        session_start();
 
         $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 

@@ -17,17 +17,34 @@ $results = $db_connection->query($sql);
 
 
 ?>
+
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+  	<?php include("views/bootstraphead.html"); ?>
+  	<title>Case Finished!</title>
     <script type="text/javascript" src="js/jquery-1.11.3.js"> </script>
     <link href="css/interview.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
+  </head>
 
-<p> Thank you for completing your case! </p>
-<ul>
-   <!--  <a href="http://web.engr.illinois.edu/~ctrocs411/interview.php?interview_id=<?php// echo $interviewID;?>.php">View Interview Stats</a> -->
-    <a href="http://web.engr.illinois.edu/~ctrocs411/index.php"> Return Home </a>
-</ul>
-</body>
+  <body>
+
+    <div class="container">
+    	<?php include("views/logged_in_navbar.php"); ?>
+
+
+      <div class="jumbotron">
+        <h1>Case Finished!</h1>
+       	<p> Thank you for completing your case! </p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+    </div> <!-- /container -->
+
+
+
+    <?php include("views/bootstrapfoot.html"); ?>
+  </body>
 </html>
+
