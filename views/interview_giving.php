@@ -61,7 +61,7 @@ if ($results2 === FALSE) {
         $additional_string = '<img src= "' . $imagepath . '" width=600 height=400 />';
         $sliderContents = $sliderContents . $additional_string;
 
-        $unlockButtonsContents = $unlockButtonsContents . '<button type="button" id="button' . $i . '" value="' . $i . '" onclick="unlockSlide(this.value, ' . $interview_id . ')">L</button>';
+        $unlockButtonsContents = $unlockButtonsContents . '<button type="button" id="button' . $i . '" value="' . $i . '" onclick="unlockSlide(this.value, ' . $interview_id . ')">' . ($i + 2) . '</button>';
         $i = $i + 1;
     }
 
@@ -70,10 +70,9 @@ if ($results2 === FALSE) {
 
 ?>
 
-
-<button onclick='startButton()'>Start</button>
+<button onclick='startButton()' id="startButton">Start</button>
 <br>
-<button onclick="stopButton(<?php echo $interview_id ?>)">Stop</button>
+<button onclick="stopButton(<?php echo $interview_id ?>)" id="stopButton">Stop</button>
 <br>
 
 <script>
@@ -82,11 +81,19 @@ if ($results2 === FALSE) {
 
     function startButton() {
         startTime = Date.now();
-
+        var buttonId  = "startButton";
+        document.getElementById(buttonId).disabled = true;
+        document.getElementById(buttonId).style.background = "#000000";
+        document.getElementById(buttonId).style.outlineColor = "#000000";
+        document.getElementById(buttonId).style.color = "#000000";
+        document.getElementById("stopButton").style.background = "#ff0000";
     }
 
-    function stopButton(interviewID) {
-        if (startTime) {
+    function stopButton(interviewID)
+    {
+        document.getElementById("stopButton").style.background = "#000000";
+        if (startTime)
+        {
             var endTime = Date.now();
             var difference = endTime - startTime;
             $.ajax({
@@ -123,7 +130,7 @@ if ($results2 === FALSE) {
             data: {'slide_number': number, 'interviewID': interviewID}
         });
         var buttonId = 'button' + number;
-        document.getElementById(buttonId).disabled = true;  //TODO this doesn't work if the page is refreshed
+        document.getElementById(buttonId).disabled = true;
         document.getElementById(buttonId).style.background = "#000000";
         document.getElementById(buttonId).style.outlineColor = "#000000";
         document.getElementById(buttonId).style.color = "#000000";
@@ -147,7 +154,7 @@ if ($results2 === FALSE) {
                 type: "POST",
                 data: {notes: notes, 'interviewID': interviewID}
 
-            }).done(function (msg) {
+            }).done(function () {
                 alert("Notes Saved Successfully");
             });
 
@@ -171,7 +178,10 @@ echo '<br />';
 
 <script>
     function rateCase(case_rating, interviewID, caseID) {
-
+        for(var i = 1; i < 6; i++)
+        {
+            document.getElementById("RatingButton"+i).disabled = true;
+        }
         $.ajax({
             url: "rateCase.php",
             type: "POST",

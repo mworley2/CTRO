@@ -15,7 +15,6 @@ require_once("config/db.php");
 $case_id = $_GET['case_id'];
 $_SESSION['interviewID'] = $interview->myID;
 
-
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 //show cases
