@@ -91,8 +91,7 @@ echo '<br />';
 ?>
 <script>
     function rateCase(case_rating, interviewID, caseID) {
-
-        alert("gethere");
+        
         $.ajax({
             url: "rateCase.php",
             type: "POST",

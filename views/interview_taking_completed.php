@@ -14,7 +14,7 @@
  */
 //require config/db.php ?
 $db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-$interviewID = $_POST['interview_id'];
+$interviewID = $_GET['interview_id'];
 
 $sql = "SELECT interviews.giver_username, interviews.timeTaken, cases.case_id, cases.case_name, cases.style FROM interviews, uses,cases WHERE interviews.interview_id =" . $interviewID . " AND interviews.interview_id = uses.interview_ID AND uses.case_id = cases.case_id;";
 $results = $db_connection->query($sql);

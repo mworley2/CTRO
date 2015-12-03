@@ -89,7 +89,7 @@ $interview_id = $_GET['interview_id'];
    echo"Rate this Case from 1-5:";
    for($i=1;$i<6;$i++){
 
-  echo '<button type="button" id="button'. $i . '" value="'. $i . '" onclick="rateCase(this.value, ' . $interview_id .', '. $case_id.')"> '. $i .'</button>';
+  echo '<button type="button" id="RatingButton'. $i . '" value="'. $i . '" onclick="rateCase(this.value, ' . $interview_id .', '. $case_id.')"> '. $i .'</button>';
     }
     echo '<br />';
 
@@ -169,7 +169,7 @@ function stopButton(interviewID) {
 
 
 <div id="finishEverything">
-    <a href="caseFinished.php?interviewID=<?php echo $interview_id;?>">End Case (CANT BE UNDONE)</a>
+    <a href="caseFinished.php?interview_id=<?php echo $interview_id;?>">End Case (CANT BE UNDONE)</a>
 </div>
 
 

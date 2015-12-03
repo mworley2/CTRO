@@ -1,4 +1,3 @@
-
 <?php
 // include the configs / constants for the database connection
 session_start();

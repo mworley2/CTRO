@@ -50,7 +50,7 @@
             require_once('fpdf17/fpdf.php');
             require_once('fpdi/fpdi.php');
             $pdf = new FPDI();
-            $num_slides = $pdf->setSourceFile($case_slides);
+            $num_slides = $pdf->setSourceFile($case_slides); //TODO once PDF splitting works
 
             $sql = "INSERT INTO cases (case_id, case_name, style, num_slides, times_taken, avg_time)
                                 VALUES(NULL, '" . $case_name . "', '" . $case_style . "', '" . $num_slides . "', '0','0.0');";
@@ -100,7 +100,7 @@
 
                 $myPath = uniqid(true); // 47 Characters long
                 $pdf_file = 'CTRO/resources/slide_storage/' . $myPath . '.pdf';
-                $save_to = 'CTRO/resources/slide_storage/' . $myPath . '.jpg'; 
+                $save_to = 'CTRO/resources/slide_storage/' . $myPath . '.jpg';
                 $new_pdf->Output($pdf_file, "F");
 
                 //execute ImageMagick command 'convert' and convert PDF to JPG with applied settings
